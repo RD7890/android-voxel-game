@@ -14,6 +14,7 @@ if (localPropertiesFile.exists()) {
 android {
     namespace = "com.mcme"
     compileSdk = 34
+    ndkVersion = "25.2.9519653"
 
     defaultConfig {
         applicationId = "com.mcme"

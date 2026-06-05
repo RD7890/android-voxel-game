@@ -78,7 +78,6 @@ jobs:
       - name: Create local.properties
         run: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" >> local.properties
-          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> local.properties
           echo "signing.storeFile=signing/signing-key.jks" >> local.properties
           echo "signing.storePassword=123456" >> local.properties
           echo "signing.keyAlias=MCMEKey" >> local.properties
@@ -88,7 +87,7 @@ jobs:
         env:
           SIGNING_STORE_PASSWORD: "123456"
           SIGNING_KEY_PASSWORD: "123456"
-        run: gradle :app:assembleRelease --stacktrace
+        run: gradle :app:assembleRelease --no-daemon --stacktrace
 
       - name: Get version name
         id: version
