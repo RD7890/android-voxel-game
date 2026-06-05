@@ -15,6 +15,12 @@ struct ChunkKeyHash {
     }
 };
 
+struct RaycastResult {
+    bool hit = false;
+    int  bx  = 0, by = 0, bz = 0; // world pos of hit block
+    int  nx  = 0, ny = 0, nz = 0; // face normal (placement = b + n)
+};
+
 class World {
 public:
     int renderDistance = 4;
@@ -25,6 +31,12 @@ public:
     void setRenderDistance(int d) { renderDistance = d; }
 
     BlockType getBlock(int wx, int wy, int wz) const;
+    void setBlockWorld(int wx, int wy, int wz, BlockType t);
+    int  getSpawnHeight(int wx, int wz) const;
+
+    RaycastResult raycast(float ox, float oy, float oz,
+                          float dx, float dy, float dz,
+                          float maxDist) const;
 
 private:
     std::unordered_map<ChunkKey, std::unique_ptr<Chunk>, ChunkKeyHash> chunks;

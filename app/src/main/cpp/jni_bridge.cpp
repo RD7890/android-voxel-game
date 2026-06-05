@@ -41,14 +41,10 @@ Java_com_mcme_NativeLib_onJump(JNIEnv*, jobject) {
 }
 
 JNIEXPORT void JNICALL
-Java_com_mcme_NativeLib_onPause(JNIEnv*, jobject) {
-    // Pause game loop if needed
-}
+Java_com_mcme_NativeLib_onPause(JNIEnv*, jobject) {}
 
 JNIEXPORT void JNICALL
-Java_com_mcme_NativeLib_onResume(JNIEnv*, jobject) {
-    // Resume
-}
+Java_com_mcme_NativeLib_onResume(JNIEnv*, jobject) {}
 
 JNIEXPORT void JNICALL
 Java_com_mcme_NativeLib_setSensitivity(JNIEnv*, jobject, jfloat s) {
@@ -63,6 +59,16 @@ Java_com_mcme_NativeLib_setRenderDistance(JNIEnv*, jobject, jint d) {
 JNIEXPORT void JNICALL
 Java_com_mcme_NativeLib_destroy(JNIEnv*, jobject) {
     if (gRenderer) { gRenderer->destroy(); delete gRenderer; gRenderer = nullptr; }
+}
+
+JNIEXPORT void JNICALL
+Java_com_mcme_NativeLib_breakBlock(JNIEnv*, jobject) {
+    if (gRenderer) gRenderer->breakBlock();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mcme_NativeLib_placeBlock(JNIEnv*, jobject, jint blockType) {
+    if (gRenderer) gRenderer->placeBlock((int)blockType);
 }
 
 } // extern "C"

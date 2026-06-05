@@ -51,8 +51,8 @@ precision mediump float;
 in vec2 vUV;
 out vec4 fragColor;
 void main() {
-    vec3 top    = vec3(0.39f, 0.64f, 0.93f);
-    vec3 bottom = vec3(0.70f, 0.84f, 0.98f);
+    vec3 top    = vec3(0.39, 0.64, 0.93);
+    vec3 bottom = vec3(0.70, 0.84, 0.98);
     fragColor = vec4(mix(bottom, top, vUV.y), 1.0);
 }
 )GLSL";
@@ -99,11 +99,19 @@ bool Renderer::init(int width, int height) {
     }
     initSky();
 
-    // Spawn player above terrain
-    camera.x = 8; camera.z = 8; camera.y = 40;
+    // Spawn player above terrain center
+    camera.x = 8.0f; camera.z = 8.0f; camera.y = 60.0f;
+    camera.pitch = -20.0f; // Look slightly down on spawn
     lastTime = getTime();
+
+    // Generate initial chunks so we can find ground
     world.update(camera.x, camera.z);
-    LOGI("Renderer init OK %dx%d", width, height);
+
+    // Place player on actual terrain surface
+    int spawnH = world.getSpawnHeight((int)camera.x, (int)camera.z);
+    camera.y = (float)spawnH + 1.62f;
+
+    LOGI("Renderer init OK %dx%d  spawnY=%d  cameraY=%.1f", width, height, spawnH, camera.y);
     return true;
 }
 
@@ -121,18 +129,24 @@ void Renderer::draw() {
     // Gravity
     velY -= 20.0f * dt;
     camera.y += velY * dt;
-    // Simple ground collision
+
+    // Find ground beneath player
     int groundY = 0;
-    for (int y = (int)camera.y; y >= 0; y--) {
-        if (world.getBlock((int)camera.x, y, (int)camera.z) != BlockType::AIR &&
-            world.getBlock((int)camera.x, y, (int)camera.z) != BlockType::WATER) {
+    int px = (int)camera.x, pz = (int)camera.z;
+    for (int y = (int)(camera.y + 1); y >= 0; y--) {
+        BlockType bt = world.getBlock(px, y, pz);
+        if (bt != BlockType::AIR && bt != BlockType::WATER) {
             groundY = y + 1; break;
         }
     }
-    if (camera.y <= groundY + 1.6f) {
-        camera.y = groundY + 1.6f;
-        velY = 0; onGround = true;
-    } else { onGround = false; }
+    float minY = (float)groundY + 1.62f;
+    if (camera.y < minY) {
+        camera.y = minY;
+        velY = 0.0f;
+        onGround = true;
+    } else {
+        onGround = false;
+    }
 
     // Horizontal movement
     camera.move(joyRight, 0, joyForward, dt);
@@ -144,15 +158,15 @@ void Renderer::draw() {
     float aspect = (float)screenW / (float)screenH;
     auto vp = camera.getVPMatrix(aspect);
 
-    // Draw sky
     drawSky();
 
-    // Draw blocks
     blockShader.use();
     blockShader.setMat4("uVP", vp.data());
     blockShader.setVec3("uFogColor", 0.70f, 0.84f, 0.98f);
-    blockShader.setFloat("uFogStart", (world.renderDistance - 1) * 16.0f * 0.7f);
-    blockShader.setFloat("uFogEnd",   (world.renderDistance) * 16.0f * 0.9f);
+    float fogStart = (world.renderDistance - 1) * 16.0f * 0.6f;
+    float fogEnd   = world.renderDistance * 16.0f * 0.85f;
+    blockShader.setFloat("uFogStart", fogStart);
+    blockShader.setFloat("uFogEnd",   fogEnd);
     world.render(blockShader);
 }
 
@@ -166,7 +180,39 @@ void Renderer::onLook(float dyaw, float dpitch) {
 }
 
 void Renderer::onJump() {
-    if (onGround) { velY = 8.0f; onGround = false; }
+    if (onGround) { velY = 9.0f; onGround = false; }
+}
+
+RaycastResult Renderer::getTarget() const {
+    float fx, fy, fz;
+    camera.getForward(fx, fy, fz);
+    return world.raycast(camera.x, camera.y, camera.z, fx, fy, fz, 5.0f);
+}
+
+void Renderer::breakBlock() {
+    auto res = getTarget();
+    if (res.hit) {
+        world.setBlockWorld(res.bx, res.by, res.bz, BlockType::AIR);
+        LOGI("Break block at %d %d %d", res.bx, res.by, res.bz);
+    }
+}
+
+void Renderer::placeBlock(int blockType) {
+    if (blockType <= 0 || blockType > 8) return;
+    auto res = getTarget();
+    if (!res.hit) return;
+    int bpx = res.bx + res.nx;
+    int bpy = res.by + res.ny;
+    int bpz = res.bz + res.nz;
+    if (bpy < 0 || bpy >= CHUNK_HEIGHT) return;
+    // Don't place inside player body
+    float feetY = camera.y - 1.62f;
+    float eyeY  = camera.y + 0.3f;
+    int ipx = (int)floorf(camera.x);
+    int ipz = (int)floorf(camera.z);
+    if (bpx == ipx && bpz == ipz && (float)bpy >= feetY && (float)bpy <= eyeY) return;
+    world.setBlockWorld(bpx, bpy, bpz, (BlockType)blockType);
+    LOGI("Place block %d at %d %d %d", blockType, bpx, bpy, bpz);
 }
 
 void Renderer::destroy() {

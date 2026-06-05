@@ -13,20 +13,22 @@ public:
     void draw();
     void destroy();
 
-    // Input
     void onJoystick(float rightAxis, float forwardAxis);
     void onLook(float dyaw, float dpitch);
     void onJump();
     void setSensitivity(float s) { camera.sensitivity = s; }
     void setRenderDistance(int d) { world.setRenderDistance(d); }
 
+    void breakBlock();
+    void placeBlock(int blockType);
+    RaycastResult getTarget() const;
+
 private:
     Shader blockShader;
+    Shader skyShader;
     int    screenW = 0, screenH = 0;
 
-    // Sky gradient quad
     GLuint skyVAO = 0, skyVBO = 0;
-    Shader skyShader;
 
     float joyRight = 0, joyForward = 0;
     float velY = 0.0f;

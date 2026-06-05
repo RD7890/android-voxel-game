@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
+import kotlin.math.hypot
 
 class GameSurfaceView @JvmOverloads constructor(
     context: Context,
@@ -15,12 +16,19 @@ class GameSurfaceView @JvmOverloads constructor(
 
     private var lastLookX = 0f
     private var lastLookY = 0f
+    private var touchStartX = 0f
+    private var touchStartY = 0f
+    private var touchStartTime = 0L
 
+    /** Called on the UI thread — tap = break block */
     val lookTouchListener = View.OnTouchListener { _, event ->
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
-                lastLookX = event.x
-                lastLookY = event.y
+                lastLookX    = event.x
+                lastLookY    = event.y
+                touchStartX  = event.x
+                touchStartY  = event.y
+                touchStartTime = System.currentTimeMillis()
             }
             MotionEvent.ACTION_MOVE -> {
                 val dx = event.x - lastLookX
@@ -28,6 +36,16 @@ class GameSurfaceView @JvmOverloads constructor(
                 lastLookX = event.x
                 lastLookY = event.y
                 queueEvent { NativeLib.onLook(dx, dy) }
+            }
+            MotionEvent.ACTION_UP -> {
+                val duration = System.currentTimeMillis() - touchStartTime
+                val moved    = hypot(
+                    (event.x - touchStartX).toDouble(),
+                    (event.y - touchStartY).toDouble()
+                )
+                if (duration < 250L && moved < 20.0) {
+                    queueEvent { NativeLib.breakBlock() }
+                }
             }
         }
         true
@@ -41,9 +59,7 @@ class GameSurfaceView @JvmOverloads constructor(
     }
 
     private inner class MCMERenderer : Renderer {
-        override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-            // width/height not available yet — called again in onSurfaceChanged
-        }
+        override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {}
         override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
             NativeLib.onSurfaceCreated(width, height)
             NativeLib.onSurfaceChanged(width, height)

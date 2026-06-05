@@ -14,4 +14,8 @@ object NativeLib {
     external fun setSensitivity(s: Float)
     external fun setRenderDistance(d: Int)
     external fun destroy()
+
+    // v1.2 — Block interaction
+    external fun breakBlock()
+    external fun placeBlock(blockType: Int)
 }
