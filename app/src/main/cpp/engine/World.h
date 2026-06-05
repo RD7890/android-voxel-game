@@ -1,5 +1,6 @@
 #pragma once
 #include "Chunk.h"
+#include "Shader.h"
 #include <unordered_map>
 #include <memory>
 #include <cstdint>
