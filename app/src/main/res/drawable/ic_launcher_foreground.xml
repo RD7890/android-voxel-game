@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Grass block face — top row (green) -->
+    <rect android:x="18" android:y="18" android:width="72" android:height="18"
+        android:fillColor="#5D9E2F" />
+    <!-- Dirt block face — bottom portion (brown) -->
+    <rect android:x="18" android:y="36" android:width="72" android:height="54"
+        android:fillColor="#7B5E3A" />
+    <!-- Dark grid lines (pixelated look) -->
+    <rect android:x="18" android:y="54" android:width="72" android:height="3"
+        android:fillColor="#5A3E1A" />
+    <rect android:x="18" android:y="72" android:width="72" android:height="3"
+        android:fillColor="#5A3E1A" />
+    <rect android:x="36" android:y="36" android:width="3" android:height="54"
+        android:fillColor="#5A3E1A" />
+    <rect android:x="54" android:y="36" android:width="3" android:height="54"
+        android:fillColor="#5A3E1A" />
+    <rect android:x="72" android:y="36" android:width="3" android:height="54"
+        android:fillColor="#5A3E1A" />
+    <!-- MCME text highlight -->
+    <rect android:x="22" android:y="22" android:width="64" android:height="10"
+        android:fillColor="#7BC43F" />
+    <!-- Border -->
+    <rect android:x="18" android:y="18" android:width="72" android:height="3"
+        android:fillColor="#2A6010" />
+    <rect android:x="18" android:y="87" android:width="72" android:height="3"
+        android:fillColor="#3A2010" />
+    <rect android:x="18" android:y="18" android:width="3" android:height="72"
+        android:fillColor="#2A5010" />
+    <rect android:x="87" android:y="18" android:width="3" android:height="72"
+        android:fillColor="#2A5010" />
+</vector>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <!-- OpenGL ES surface (full screen) -->
+    <com.mcme.GameSurfaceView
+        android:id="@+id/gameSurface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Right side look zone (transparent, captures touch) -->
+    <View
+        android:id="@+id/lookZone"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:layout_weight="0"
+        android:background="@android:color/transparent" />
+
+    <!-- Crosshair -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:pointerIcon="crosshair">
+        <View
+            android:layout_width="20dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="#AAFFFFFF" />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="#AAFFFFFF" />
+    </FrameLayout>
+
+    <!-- HUD: Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- Back button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_back"
+            android:background="@color/hud_bg"
+            android:padding="8dp"
+            android:contentDescription="Back" />
+
+    </LinearLayout>
+
+    <!-- Bottom HUD: Joystick (left) + Jump (right) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <!-- Left: Virtual Joystick -->
+        <com.mcme.ui.JoystickView
+            android:id="@+id/joystick"
+            android:layout_width="140dp"
+            android:layout_height="140dp" />
+
+        <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+
+        <!-- Right: Jump button -->
+        <Button
+            android:id="@+id/btnJump"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:text="JUMP"
+            android:textSize="12sp"
+            android:textColor="@color/text_light"
+            android:fontFamily="monospace"
+            android:background="@color/hud_bg"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+</FrameLayout>

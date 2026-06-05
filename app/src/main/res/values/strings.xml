@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MCME</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_settings">Settings</string>
+    <string name="btn_back">Back</string>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_menu">
+
+    <!-- Dirt-block pattern overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.18"
+        android:background="@color/dirt" />
+
+    <!-- Center panel -->
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <!-- MCME Logo text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MCME"
+            android:textSize="64sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_gold"
+            android:shadowColor="#000000"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="2"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.15"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minecraft Mobile Edition"
+            android:textSize="14sp"
+            android:textColor="@color/text_subtitle"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="40dp" />
+
+        <!-- Play Button -->
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="  Play"
+            android:textSize="18sp"
+            android:textColor="@color/text_dark"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:background="@color/btn_green"
+            android:drawableStart="@drawable/ic_play"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="12dp"
+            android:stateListAnimator="@null" />
+
+        <!-- Settings Button -->
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="  Settings"
+            android:textSize="18sp"
+            android:textColor="@color/text_light"
+            android:fontFamily="monospace"
+            android:background="@color/btn_gray"
+            android:drawableStart="@drawable/ic_settings"
+            android:drawablePadding="8dp"
+            android:stateListAnimator="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v1.0.0 — Alpha"
+            android:textSize="11sp"
+            android:textColor="@color/text_subtitle"
+            android:fontFamily="monospace"
+            android:layout_marginTop="28dp" />
+
+    </LinearLayout>
+</FrameLayout>

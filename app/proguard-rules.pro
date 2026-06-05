@@ -1,0 +1,3 @@
+-keep class com.mcme.NativeLib { *; }
+-keepclassmembers class com.mcme.** { native <methods>; }
+-dontwarn com.mcme.**
