@@ -5,9 +5,6 @@
         <item name="colorPrimaryDark">#1A1A2E</item>
         <item name="colorAccent">#FFD700</item>
         <item name="android:windowBackground">@color/bg_menu</item>
-        <item name="android:statusBarColor">#00000000</item>
-        <item name="android:navigationBarColor">#00000000</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

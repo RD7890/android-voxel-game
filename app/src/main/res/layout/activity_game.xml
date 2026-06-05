@@ -10,13 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Right side look zone (transparent, captures touch) -->
+    <!-- Full-screen look zone (transparent, behind HUD controls) -->
     <View
         android:id="@+id/lookZone"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:layout_weight="0"
         android:background="@android:color/transparent" />
 
     <!-- Crosshair -->

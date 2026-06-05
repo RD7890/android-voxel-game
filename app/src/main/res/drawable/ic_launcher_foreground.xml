@@ -5,33 +5,46 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Grass block face — top row (green) -->
-    <rect android:x="18" android:y="18" android:width="72" android:height="18"
-        android:fillColor="#5D9E2F" />
-    <!-- Dirt block face — bottom portion (brown) -->
-    <rect android:x="18" android:y="36" android:width="72" android:height="54"
-        android:fillColor="#7B5E3A" />
-    <!-- Dark grid lines (pixelated look) -->
-    <rect android:x="18" android:y="54" android:width="72" android:height="3"
-        android:fillColor="#5A3E1A" />
-    <rect android:x="18" android:y="72" android:width="72" android:height="3"
-        android:fillColor="#5A3E1A" />
-    <rect android:x="36" android:y="36" android:width="3" android:height="54"
-        android:fillColor="#5A3E1A" />
-    <rect android:x="54" android:y="36" android:width="3" android:height="54"
-        android:fillColor="#5A3E1A" />
-    <rect android:x="72" android:y="36" android:width="3" android:height="54"
-        android:fillColor="#5A3E1A" />
-    <!-- MCME text highlight -->
-    <rect android:x="22" android:y="22" android:width="64" android:height="10"
-        android:fillColor="#7BC43F" />
-    <!-- Border -->
-    <rect android:x="18" android:y="18" android:width="72" android:height="3"
-        android:fillColor="#2A6010" />
-    <rect android:x="18" android:y="87" android:width="72" android:height="3"
-        android:fillColor="#3A2010" />
-    <rect android:x="18" android:y="18" android:width="3" android:height="72"
-        android:fillColor="#2A5010" />
-    <rect android:x="87" android:y="18" android:width="3" android:height="72"
-        android:fillColor="#2A5010" />
+    <!-- Dirt body (brown) -->
+    <path android:fillColor="#7B5E3A"
+          android:pathData="M18,36 L90,36 L90,90 L18,90 Z"/>
+
+    <!-- Grass top (green) -->
+    <path android:fillColor="#5D9E2F"
+          android:pathData="M18,18 L90,18 L90,36 L18,36 Z"/>
+
+    <!-- Grass highlight strip -->
+    <path android:fillColor="#7BC43F"
+          android:pathData="M20,20 L90,20 L90,29 L20,29 Z"/>
+
+    <!-- Horizontal grid lines on dirt -->
+    <path android:fillColor="#5A3E1A"
+          android:pathData="M18,54 L90,54 L90,57 L18,57 Z"/>
+    <path android:fillColor="#5A3E1A"
+          android:pathData="M18,72 L90,72 L90,75 L18,75 Z"/>
+
+    <!-- Vertical grid lines on dirt -->
+    <path android:fillColor="#5A3E1A"
+          android:pathData="M36,36 L39,36 L39,90 L36,90 Z"/>
+    <path android:fillColor="#5A3E1A"
+          android:pathData="M54,36 L57,36 L57,90 L54,90 Z"/>
+    <path android:fillColor="#5A3E1A"
+          android:pathData="M72,36 L75,36 L75,90 L72,90 Z"/>
+
+    <!-- Top border (dark green) -->
+    <path android:fillColor="#2A6010"
+          android:pathData="M18,18 L90,18 L90,21 L18,21 Z"/>
+
+    <!-- Bottom border (dark brown) -->
+    <path android:fillColor="#3A2010"
+          android:pathData="M18,87 L90,87 L90,90 L18,90 Z"/>
+
+    <!-- Left border -->
+    <path android:fillColor="#2A5010"
+          android:pathData="M18,18 L21,18 L21,90 L18,90 Z"/>
+
+    <!-- Right border -->
+    <path android:fillColor="#2A5010"
+          android:pathData="M87,18 L90,18 L90,90 L87,90 Z"/>
+
 </vector>
